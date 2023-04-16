@@ -56,8 +56,12 @@ def ask(Q):
 
 @app.route('/emotions')
 def emotions():
-    MyEmotions = sentiment(Qs)[1]
-    return render_template("emotions.html", MyEmotions = MyEmotions)
+    MyEmotions = sentiment(Qs)
+    MyEmotions = MyEmotions[0][:10]
+    New = ""
+    for emo in MyEmotions:
+        New += str(emo) +"\n"
+    return render_template("emotions.html", MyEmotions = New)
 
 def sentiment(text):
     _emotions_model = "joeddav/distilbert-base-uncased-go-emotions-student"
@@ -71,11 +75,16 @@ def sentiment(text):
     results = emotions(text)[0]
     results = sorted(results, reverse=True, key=lambda x: x["score"])
     Result = []
+    Keys = []
+    Values = []
+
     for output in results:
-        Result.append([output['label'],output['score']])
+        Result.append([output['label'],round(output['score'],2)])
+        Keys.append(output['label'])
+        Values.append(output['score'])
     df = pd.DataFrame(Result)
-    print(df)
-    return Result, df
+    return Result, df, Keys, Values
+
 
 
 if __name__ == '__main__':
