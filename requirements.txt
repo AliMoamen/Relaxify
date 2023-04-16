@@ -3,3 +3,5 @@ Gunicorn
 openai
 transformers
 pandas
+PyTorch
+TensorFlow
