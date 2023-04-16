@@ -6,7 +6,7 @@ Qs = ""
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = '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'
+openai.api_key = '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'
 
 # Set up prompt and engine
 history = '''Answer as if you were a doctor helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient.'''
