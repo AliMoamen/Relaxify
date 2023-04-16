@@ -23,15 +23,15 @@
             e.preventDefault();
             const message = messageInput.value;
             messageInput.value = '';
+            const messageElement = document.createElement('div');
+            messageElement.classList.add("user-message")
+            messageElement.innerText = message;
+            chatContainer.appendChild(messageElement);
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/chatbot');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = () => {
                 const response = xhr.responseText;
-                const messageElement = document.createElement('div');
-                messageElement.classList.add("user-message")
-                messageElement.innerText = message;
-                chatContainer.appendChild(messageElement);
                 const responseElement = document.createElement('div');
                 responseElement.classList.add("bot-message")
                 responseElement.innerText = response;
