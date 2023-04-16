@@ -10,7 +10,14 @@ body {
 
 }
 h1{
-    font-size: 45px;
+    font-size: 40px;
+}
+h2{
+    font-size: 25px;
+    color: white;
+}
+a{
+    color: white;
 }
 input[type="text"] {
     border: 1px solid #dddddd;
@@ -20,15 +27,11 @@ input[type="text"] {
     padding: 10px;
     width: 70%;
 }
-.scrollbar-hide::-webkit-scrollbar {
+#chat-container::-webkit-scrollbar{
     display: none;
-}
+  }
 
-/* For IE, Edge and Firefox */
-.scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
+
 #chat-container {
     
     background-color: #ffffff8e;
