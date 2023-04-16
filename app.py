@@ -2,11 +2,12 @@ from flask import Flask, request, render_template
 import openai
 from transformers import pipeline
 import pandas as pd
+import os
 Qs = ""
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = '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'
+openai.api_key = os.getenv("API")
 
 # Set up prompt and engine
 history = '''Answer as if you were a doctor helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient.'''
