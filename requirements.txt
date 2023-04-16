@@ -3,4 +3,3 @@ Gunicorn
 openai
 transformers
 pandas
-torch
