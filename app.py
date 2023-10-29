@@ -7,25 +7,17 @@ Qs = ""
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = os.getenv("API")
+openai.api_key = openai.api_key = os.getenv("API")
 
 # Set up prompt 
 messages=[
         {"role": "system", "content": "You are a therapist helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient. Ask follow up questions for the user and be concise. Only answer questions within the scope of your job. If asked about the job, you are a therapist helping patients dealing with stress and anxiety"},
     ]
 
-
 # Define route for homepage
 @app.route('/')
 def home():
     return render_template('index.html')
-
-# Define route for chatbot
-@app.route('/chatbot', methods=['POST'])
-def chatbot():
-    message = request.form['message']
-    response = ask(message)
-    return response
 
 # Define route for chatbot
 @app.route('/chatbot', methods=['POST'])
