@@ -9,12 +9,11 @@ app = Flask(__name__)
 # Set up OpenAI API credentials
 openai.api_key = os.getenv("API")
 
-# Set up prompt and engine
-history = '''Answer as if you were a doctor helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient.'''
+# Set up prompt 
 messages=[
-        {"role": "system", "content": "You are a therapist helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient. Ask follow up questions for the user and be concise"},
+        {"role": "system", "content": "You are a therapist helping a patient with stress scientifically. Show empathy, sympathesis, and carefulness when dealing with patient. Ask follow up questions for the user and be concise. Only answer questions within the scope of your job. If asked about the job, you are a therapist helping patients dealing with stress and anxiety"},
     ]
-engine = "text-davinci-002"
+
 
 # Define route for homepage
 @app.route('/')
@@ -28,30 +27,28 @@ def chatbot():
     response = ask(message)
     return response
 
+# Define route for chatbot
+@app.route('/chatbot', methods=['POST'])
+def chatbot():
+    message = request.form['message']
+    response = ask(message)
+    return response
+
 # Define function to generate response using OpenAI API
 def ask(Q):
-    global history
     global messages
-    # history = history + f"\nPerson: {Q}" + "\nDoctor: "
     messages.append({'role': 'user', 'content': Q})
     global Qs
     Qs += Q
     response = openai.ChatCompletion.create(
-        # engine=engine,
         model="gpt-3.5-turbo",
-        # prompt=history,
         messages=messages,
         max_tokens=200,
-        # n=1,
-        # stop=None,
-        temperature=0.4,
+        temperature=0.4
     )
-    print(response)
     response_text =  response.choices[0]['message']['content']
     messages.append({'role': 'assistant', 'content': response.choices[0]['message']['content']})
-    # history += response.choices[0].text
     return response_text
-    # return response.choices[0].text.strip()
 
 
 @app.route('/emotions')
