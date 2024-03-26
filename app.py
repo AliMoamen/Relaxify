@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-import openai
+from openai import OpenAI
 from transformers import pipeline
 import pandas as pd
 import os
@@ -7,7 +7,10 @@ Qs = ""
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = openai.api_key = os.getenv("API")
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key= os.getenv("API"),
+)
 
 # Set up prompt 
 messages=[
@@ -32,14 +35,14 @@ def ask(Q):
     messages.append({'role': 'user', 'content': Q})
     global Qs
     Qs += Q
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages,
         max_tokens=200,
         temperature=0.4
     )
-    response_text =  response.choices[0]['message']['content']
-    messages.append({'role': 'assistant', 'content': response.choices[0]['message']['content']})
+    response_text =  response.choices[0].message.content
+    messages.append({'role': 'assistant', 'content': response.choices[0].message.content})
     return response_text
 
 
