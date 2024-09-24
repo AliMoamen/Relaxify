@@ -139,7 +139,8 @@ messageForm.addEventListener('submit', e => {
 });
 
 // Handle the new chat button click
-newChatButton.addEventListener('click', () => {
+newChatButton.addEventListener('click', (event) => {
+    event.preventDefault()
     fetch('/new_chat', { method: 'POST' })
         .then(response => {
             if (response.ok) {
