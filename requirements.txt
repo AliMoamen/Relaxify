@@ -1,4 +1,3 @@
 Flask
 Gunicorn
-jiter>=0.4.0
 openai
