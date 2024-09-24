@@ -4,15 +4,11 @@ const messageInput = document.getElementById('message-input');
 const submitButton = document.getElementById('submit-btn');
 const newChatButton = document.getElementById('new-chat-btn'); // Button for starting new chats
 let isWaitingForResponse = false; // Track if we're waiting for a response from the bot
-let chatHistory = []; // Store the chat history
-
+let chatHistory = JSON.parse(localStorage.getItem('relaxifyChatHistory')) || []; // Initialize the chat history from localStorage or empty array
 
 window.onload = function() {
-    const savedChat = localStorage.getItem('relaxifyChatHistory');
-    if (savedChat) {
-        // Parse the saved chat history from localStorage
-        const chatHistory = JSON.parse(savedChat);
-
+    // Check for saved chat history in localStorage
+    if (chatHistory.length > 0) {
         // Send the chat history to the server
         fetch('/load_chat_history', {
             method: 'POST',
