@@ -15,8 +15,11 @@
         <div class="input-container">
             <input type="text" name="message" id="message-input" placeholder="Write your message here!">
             <button type="submit" id="submit-btn">&#10148;</button> <!-- Unicode arrow symbol -->
+            <button id="new-chat-btn" class="new-chat">Clear History</button>
+
         </div>
     </form>
+    
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     
     
