@@ -1,5 +1,3 @@
 Flask
 Gunicorn
 openai
-transformers
-pandas

@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template
 from openai import OpenAI
-from transformers import pipeline
-import pandas as pd
 import os
 Qs = ""
 app = Flask(__name__)
+
+
 
 # Set up OpenAI API credentials
 client = OpenAI(
@@ -44,40 +44,6 @@ def ask(Q):
     response_text =  response.choices[0].message.content
     messages.append({'role': 'assistant', 'content': response.choices[0].message.content})
     return response_text
-
-
-@app.route('/emotions')
-def emotions():
-    MyEmotions = sentiment(Qs)
-    MyEmotions = MyEmotions[0][:10]
-    New = ""
-    for emo in MyEmotions:
-        New += str(emo) +"\n"
-    return render_template("emotions.html", MyEmotions = New)
-
-def sentiment(text):
-    _emotions_model = "joeddav/distilbert-base-uncased-go-emotions-student"
-
-    emotions = pipeline(
-        "text-classification",
-        model=_emotions_model,
-        return_all_scores=True,
-    )
-    #Call to the function
-    results = emotions(text)[0]
-    results = sorted(results, reverse=True, key=lambda x: x["score"])
-    Result = []
-    Keys = []
-    Values = []
-
-    for output in results:
-        Result.append([output['label'],round(output['score'],2)])
-        Keys.append(output['label'])
-        Values.append(output['score'])
-    df = pd.DataFrame(Result)
-    return Result, df, Keys, Values
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
