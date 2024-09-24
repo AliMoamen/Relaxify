@@ -1,7 +1,9 @@
 /* Update the background gradient for a softer look */
+* {
+    font-family: 'Poppins', sans-serif;
+}
 body {
     color: white;
-    font-family: 'Chivo Mono', monospace;
     background: linear-gradient(to right, #d4fc79, #96e6a1);
     background-attachment: fixed;
     background-size: cover;
@@ -10,20 +12,55 @@ body {
 
 h1 {
     font-size: 36px;
-    font-family: 'Roboto Slab', serif;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-input[type="text"] {
-    border: 1px solid #cccccc;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    font-size: 18px;
-    padding: 12px;
-    width: 75%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+/* Container to hold the text field and submit button together */
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f0f4f8;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
 }
+
+/* Modern input field styling */
+input[type="text"] {
+    border: none;
+    background-color: transparent; /* Ensure the input takes the container's background */
+    font-size: 16px;
+    padding: 12px;
+    width: 100%;
+    outline: none;
+}
+
+/* Submit button styling */
+button#submit-btn {
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    padding: 12px;
+    cursor: pointer;
+    margin-left: 10px; /* Add a margin to create space between the button and input */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+button#submit-btn:hover {
+    background-color: #4cae4c;
+}
+
+.input-container:focus-within {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Highlight the whole container when focused */
+}
+
 
 /* Enhance the chat container styling */
 #chat-container {
@@ -36,6 +73,33 @@ input[type="text"] {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     height: 350px;
 }
+
+/* Scrollbar styles */
+#chat-container::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+#chat-container::-webkit-scrollbar-track {
+    background: #f0f4f8; /* Background of the track (the container for the scrollbar thumb) */
+    border-radius: 10px;
+}
+
+#chat-container::-webkit-scrollbar-thumb {
+    background-color: #5cb85c; /* Color of the scroll thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 2px solid #f0f4f8; /* Gives a little padding between the thumb and the track */
+}
+
+#chat-container::-webkit-scrollbar-thumb:hover {
+    background-color: #4cae4c; /* Change thumb color when hovered */
+}
+
+/* Ensures a fallback for non-WebKit browsers */
+#chat-container {
+    scrollbar-width: thin; /* Firefox uses this property */
+    scrollbar-color: #5cb85c #f0f4f8; /* thumb color track color for Firefox */
+}
+
 
 /* Add animations to user and bot messages */
 .user-message, .bot-message {
